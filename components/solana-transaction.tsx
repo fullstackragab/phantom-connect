@@ -18,7 +18,7 @@ export default function SolanaTransaction() {
       await connection.getLatestBlockhash();
 
     const fromAddress = await solana.getPublicKey();
-    const toAddress = "6GXVP4mTMNqihNARivweYwc6rtuih1ivoJN7bcAEWWCV";
+    const toAddress = "AE6jndedpjoX2XLt4nFYGp3JEuHTseGh8EMDGRmADacn";
     if (!fromAddress) {
       throw new Error("Failed to get public key");
     }
