@@ -52,13 +52,15 @@ npm run dev
    - Approve connection in Phantom popup
 
 4. **Test transactions:**
-   
+
    **SOL Transfer:**
+
    - Click "Send SOL" button
    - Approve transaction in Phantom
    - Transaction sends 0.0005 SOL to a test address
-   
+
    **USDC Transfer:**
+
    - Ensure you have devnet USDC tokens (see USDC Setup below)
    - Click "Send USDC" button
    - Approve transaction in Phantom
@@ -69,9 +71,11 @@ npm run dev
 To test USDC transfers on devnet:
 
 1. **Get Devnet SOL:**
+
    ```bash
    solana airdrop 1 <YOUR_WALLET_ADDRESS> --url devnet
    ```
+
    Or use [Solana Faucet](https://faucet.solana.com/)
 
 2. **Get Devnet USDC:**
