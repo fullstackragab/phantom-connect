@@ -10,7 +10,9 @@ This is a practical example demonstrating how to integrate Phantom wallet with a
 - ✅ Detecting wallet connection status
 - ✅ Displaying connected wallet address
 - ✅ Creating and signing Solana transactions
-- ✅ Submitting transactions to Solana devnet
+- ✅ Submitting SOL transactions to Solana devnet
+- ✅ Transferring USDC tokens via SPL Token program
+- ✅ Creating associated token accounts for recipients
 - ✅ Confirming transaction finalization
 
 ## Architecture Overview
@@ -19,7 +21,8 @@ This is a practical example demonstrating how to integrate Phantom wallet with a
 app/page.tsx                          → Main entry point
 components/phantom-connect.tsx        → Phantom SDK Provider setup
 components/wallet-connect.tsx         → Wallet connection UI
-components/solana-transaction.tsx     → Transaction submission logic
+components/solana-transaction.tsx     → SOL transaction submission logic
+components/usdc-transaction.tsx       → USDC token transfer logic
 ```
 
 ## Prerequisites
@@ -48,16 +51,40 @@ npm run dev
    - Click "Connect Wallet" button
    - Approve connection in Phantom popup
 
-4. **Test transaction:**
+4. **Test transactions:**
+   
+   **SOL Transfer:**
    - Click "Send SOL" button
    - Approve transaction in Phantom
    - Transaction sends 0.0005 SOL to a test address
+   
+   **USDC Transfer:**
+   - Ensure you have devnet USDC tokens (see USDC Setup below)
+   - Click "Send USDC" button
+   - Approve transaction in Phantom
+   - Transaction sends 0.2 USDC to a test address
+
+## USDC Setup (Devnet)
+
+To test USDC transfers on devnet:
+
+1. **Get Devnet SOL:**
+   ```bash
+   solana airdrop 1 <YOUR_WALLET_ADDRESS> --url devnet
+   ```
+   Or use [Solana Faucet](https://faucet.solana.com/)
+
+2. **Get Devnet USDC:**
+   - The example uses USDC devnet mint: `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`
+   - You'll need to mint or receive devnet USDC tokens to this address
+   - Alternatively, use [SPL Token Faucet](https://spl-token-faucet.com/) or create your own tokens for testing
 
 ## Key Technologies
 
 - **Next.js 15** - React framework with App Router
 - **@phantom/react-sdk** - Official Phantom wallet React integration
 - **@solana/web3.js** - Solana blockchain JavaScript SDK
+- **@solana/spl-token** - SPL Token program library for token transfers
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first styling
 
@@ -73,7 +100,7 @@ Uses `usePhantom()` hook to access connection state and `ConnectBox` component f
 
 ### 3. Transaction Flow (`solana-transaction.tsx`)
 
-Demonstrates complete transaction lifecycle:
+Demonstrates complete SOL transaction lifecycle:
 
 - Connect to Solana RPC
 - Get wallet public key
@@ -81,6 +108,17 @@ Demonstrates complete transaction lifecycle:
 - Build transaction message
 - Sign and send via Phantom
 - Confirm finalization
+
+### 4. USDC Token Transfer (`usdc-transaction.tsx`)
+
+Shows how to transfer SPL tokens (USDC):
+
+- Verify sufficient SOL balance for fees
+- Get associated token addresses for sender and recipient
+- Check sender's USDC balance
+- Create recipient's token account if needed
+- Build token transfer instruction (0.2 USDC)
+- Sign, send, and confirm transaction
 
 ## Network Configuration
 
